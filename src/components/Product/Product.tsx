@@ -66,7 +66,7 @@ const Product = ({ data, isCart, isLoading }: ProductProps) => {
           alt={data.productName}
           width={700}
           height={700}
-          className="w-full h-full object-cover rounded-tl-xl rounded-tr-xl border-b border-slate-300 min-h-[300px]"
+          className="w-full h-full object-cover rounded-tl-xl rounded-tr-xl border-b border-slate-300 min-h-[300px] xl:max-h-[350px] xl:min-h-[350px]"
         />
         <AnimatePresence>
           {showDetails ? (
