@@ -1,5 +1,16 @@
 {
   "catalogue": {
-    "pageTitle": "Product catalogue"
+    "pageTitle": "Product catalogue",
+    "addToCartButtonTitle": "Add to cart",
+    "showDetailsCardTitle": "Click to show details",
+    "hideDetailsButtonTitle": "Click to hide details",
+    "productDescriptionHeader": "Product description",
+    "productDimensionsHeader": "Dimensions: ",
+    "productWeightHeader": "Weight: ",
+    "noProductsMessage": "No products available"
+  },
+  "cart": {
+    "pageTitle": "Shopping cart",
+    "removeProductButtonTitle": "Remove from cart"
   }
 }
