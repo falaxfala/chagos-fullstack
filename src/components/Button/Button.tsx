@@ -1,5 +1,5 @@
 import { cx } from "@/utils/style";
-import { useButtonClassName } from "./Button.hooks";
+import { getButtonClassName } from "./Button.utils";
 import type { ButtonProps } from "./Button.types";
 import { EllipsisHorizontalCircleIcon } from "@heroicons/react/16/solid";
 
@@ -10,7 +10,7 @@ const Button = ({
   isLoading,
   ...props
 }: ButtonProps) => {
-  const variantClassNames = useButtonClassName(variant);
+  const variantClassNames = getButtonClassName(variant);
 
   return (
     <button

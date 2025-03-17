@@ -6,8 +6,11 @@ import { useProductListStore } from "../StoreProviders/ProductListProvider/Produ
 
 const Cart = () => {
   const products = useProductListStore((state) => state.products);
-  const getProducts = useProductListStore((state) => state.getProducts);
-  const loadingProducts = useProductListStore((state) => state.loadingProducts);
+  const fetchProducts = useProductListStore((state) => state.fetchProducts);
+  const fetchCategories = useProductListStore((state) => state.fetchCategories);
+  const loadingProducts = useProductListStore(
+    (state) => state.isLoadingProducts
+  );
 
   const cartProducts = useMemo(
     () => products.filter(({ inCart }) => inCart),
@@ -15,8 +18,9 @@ const Cart = () => {
   );
 
   useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+    fetchProducts();
+    fetchCategories();
+  }, [fetchCategories, fetchProducts]);
 
   return (
     <div>

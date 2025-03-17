@@ -5,7 +5,9 @@ import ProductList from "../ProductList/ProductList";
 
 const ProductCatalog = () => {
   const products = useProductListStore((state) => state.products);
-  const loadingProducts = useProductListStore((state) => state.loadingProducts);
+  const loadingProducts = useProductListStore(
+    (state) => state.isLoadingProducts
+  );
 
   return (
     <section className="px-8 py-12">

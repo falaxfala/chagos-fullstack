@@ -20,15 +20,15 @@ export type ProductListFilters = {
 export type ProductListState = {
   products: Product[];
   cart: string[];
-  loadingProducts: boolean;
-  loadingCategories: boolean;
+  isLoadingProducts: boolean;
+  isLoadingCategories: boolean;
   error: string;
   categories?: string[];
 };
 
 export type ProductListActions = {
-  getProducts: (filters?: ProductListFilters) => void;
-  getCategories: () => void;
+  fetchProducts: (filters?: ProductListFilters) => void;
+  fetchCategories: () => void;
   addProductToCart: (productId: string) => void;
   removeProductFromCart: (productId: string) => void;
   setError: (error: string) => void;
@@ -39,8 +39,8 @@ export type ProductListStore = ProductListState & ProductListActions;
 export const productListInitialState: ProductListState = {
   products: [],
   cart: [],
-  loadingProducts: false,
-  loadingCategories: false,
+  isLoadingCategories: false,
+  isLoadingProducts: false,
   error: "",
 };
 
@@ -65,20 +65,19 @@ export const createProductListStore = (
 ) =>
   createStore<ProductListStore>()((set, get) => ({
     ...initState,
-    getCategories: async () => {
-      set({ loadingCategories: true });
-      await fetch<string[]>("productsCategories")
-        .then((categories) => {
-          set({ categories });
-        })
-        .catch((error) => {
-          set({ error: error.message });
-        })
-        .finally(() => {
-          set({ loadingCategories: false });
-        });
+    fetchCategories: async () => {
+      set({ isLoadingCategories: true });
+      try {
+        const categories = await fetch<string[]>("productsCategories");
+        set({ categories });
+      } catch (error) {
+        if (error instanceof Error) {
+          set({ error: error?.message });
+        }
+      }
+      set({ isLoadingCategories: false });
     },
-    getProducts: async (filters) => {
+    fetchProducts: async (filters) => {
       const preparedFilters = filters && {
         ...filters,
         priceRange: filters.priceRange
@@ -87,26 +86,27 @@ export const createProductListStore = (
       };
 
       const cart = get().cart;
-      set({ loadingProducts: true });
-      await fetch<Product[]>("products", { query: preparedFilters })
-        .then((products) => {
-          const preparedProducts = products.map((product) => {
-            const productInCart = cart.find(
-              (cartProductId) => cartProductId === product._id
-            );
-            return {
-              ...product,
-              inCart: !!productInCart,
-            };
-          });
-          set({ products: preparedProducts });
-        })
-        .catch((error) => {
-          set({ error: error.message });
-        })
-        .finally(() => {
-          set({ loadingProducts: false });
+      set({ isLoadingProducts: true });
+      try {
+        const products = await fetch<Product[]>("products", {
+          query: preparedFilters,
         });
+        const preparedProducts = products.map((product) => {
+          const productInCart = cart.find(
+            (cartProductId) => cartProductId === product._id
+          );
+          return {
+            ...product,
+            inCart: !!productInCart,
+          };
+        });
+        set({ products: preparedProducts });
+      } catch (error) {
+        if (error instanceof Error) {
+          set({ error: error?.message });
+        }
+      }
+      set({ isLoadingProducts: false });
     },
     addProductToCart: (productId) => {
       const cart = get().cart;

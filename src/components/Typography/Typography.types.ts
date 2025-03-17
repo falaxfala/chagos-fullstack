@@ -20,6 +20,6 @@ export type TypographyProps = {
   variant?: TypographyVariant;
 };
 
-export type UseTypographyClassNameArgs = {
+export type GetTypographyClassNamesArgs = {
   variant: TypographyVariant;
 };

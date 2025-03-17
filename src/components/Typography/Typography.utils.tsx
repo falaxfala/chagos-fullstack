@@ -1,8 +1,8 @@
-import type { UseTypographyClassNameArgs } from "./Typography.types";
+import type { GetTypographyClassNamesArgs } from "./Typography.types";
 
-export const useTypographyClassName = ({
+export const getTypographyClassName = ({
   variant,
-}: UseTypographyClassNameArgs) => {
+}: GetTypographyClassNamesArgs) => {
   switch (variant) {
     case "body":
       return "text-base";

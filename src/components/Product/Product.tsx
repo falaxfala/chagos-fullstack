@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { ProductProps } from "./Product.types";
 import Typography from "../Typography/Typography";
-import { cropText } from "@/utils/string";
 import Button from "../Button/Button";
 import {
   ChevronDownIcon,
@@ -53,12 +52,14 @@ const Product = ({ data, isCart, isLoading }: ProductProps) => {
   return (
     <div
       title={tCatalogue("showDetailsCardTitle")}
+      tabIndex={0}
+      onFocus={() => setShowDetails(true)}
       onClick={(e) => {
         e.stopPropagation();
         e.preventDefault();
         setShowDetails(true);
       }}
-      className="w-full relative text-left hover:scale-105 transition-all rounded-xl border border-slate-300 flex flex-col h-full hover:shadow-lg duration-300 cursor-pointer"
+      className="w-full focus:shadow-2xl relative text-left transition-all rounded-xl border border-slate-300 flex flex-col h-full hover:shadow-2xl hover:outline-2 outline-slate-300 duration-300 cursor-pointer"
     >
       <div className="relative">
         <Image
@@ -113,8 +114,8 @@ const Product = ({ data, isCart, isLoading }: ProductProps) => {
           <Typography className="font-semibold" variant="caption">
             {data.manufacturer}
           </Typography>
-          <Typography tag="h1" variant="subheading">
-            {cropText(data.productName, 24)}
+          <Typography tag="h1" variant="subheading" className="line-clamp-1">
+            {data.productName}
           </Typography>
         </div>
         <div className="flex items-center justify-between">

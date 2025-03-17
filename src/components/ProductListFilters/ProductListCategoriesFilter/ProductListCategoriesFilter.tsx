@@ -9,12 +9,12 @@ const ProductListCategoriesFilter = ({
   categoryFilter,
   className,
 }: ProductListCategoriesFilterProps) => {
-  const getCategories = useProductListStore((state) => state.getCategories);
+  const fetchCategories = useProductListStore((state) => state.fetchCategories);
   const categories = useProductListStore((state) => state.categories);
 
   useEffect(() => {
-    getCategories();
-  }, [getCategories]);
+    fetchCategories();
+  }, [fetchCategories]);
 
   const handleCategoryChange = useCallback(
     (category: string) => {

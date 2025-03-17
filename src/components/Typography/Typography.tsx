@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import { useTypographyClassName } from "./Typography.hooks";
+import { getTypographyClassName } from "./Typography.utils";
 import type { TypographyProps } from "./Typography.types";
 import { cx } from "@/utils/style";
 
@@ -9,11 +8,9 @@ const Typography = ({
   tag,
   variant = "body",
 }: TypographyProps) => {
-  const variantClassNames = useTypographyClassName({ variant });
+  const variantClassNames = getTypographyClassName({ variant });
 
-  const Tag = useMemo(() => {
-    return tag || "p";
-  }, [tag]);
+  const Tag = tag ?? "p";
 
   return <Tag className={cx(variantClassNames, className)}>{children}</Tag>;
 };

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ButtonLinkProps } from "./Button.types";
-import { useButtonClassName } from "./Button.hooks";
+import { getButtonClassName } from "./Button.utils";
 import { cx } from "@/utils/style";
 
 const ButtonLink = ({
@@ -9,7 +9,7 @@ const ButtonLink = ({
   className,
   ...props
 }: ButtonLinkProps) => {
-  const variantClassNames = useButtonClassName(variant);
+  const variantClassNames = getButtonClassName(variant);
 
   return (
     <Link

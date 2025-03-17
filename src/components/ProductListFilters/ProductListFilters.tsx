@@ -18,7 +18,7 @@ const ProductListFilters = () => {
   const cart = useProductListStore((state) => state.cart);
   const ref = useRef<HTMLDivElement>(null);
 
-  const getProducts = useProductListStore((state) => state.getProducts);
+  const fetchProducts = useProductListStore((state) => state.fetchProducts);
 
   const [searchQuery, setSearchQuery, realTimeSearchQuery] =
     useDebouncedState("");
@@ -41,34 +41,13 @@ const ProductListFilters = () => {
   }, [debouncedPriceFilter]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (ref.current) {
-        if (window.scrollY > ref.current.offsetTop - 8) {
-          ref.current.classList.add("pinned-filters");
-        } else {
-          ref.current.classList.remove("pinned-filters");
-        }
-      }
-    };
-
-    if (ref.current) {
-      window.addEventListener("scroll", handleScroll);
-    }
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ref?.current]);
-
-  useEffect(() => {
-    getProducts(filters);
-  }, [filters, getProducts]);
+    fetchProducts(filters);
+  }, [filters, fetchProducts]);
 
   return (
     <div
       ref={ref}
-      className="sticky top-0 z-50 bg-white p-4 transition-all duration-200 flex flex-col gap-4"
+      className="bg-white p-4 transition-all duration-200 flex flex-col gap-4"
     >
       <div className="flex flex-row justify-between gap-2">
         <ProductListCategoriesFilter

@@ -5,7 +5,10 @@ body {
 }
 
 .pinned-filters {
-  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
   margin-left: -2rem;
   margin-right: -2rem;
+}
+
+.pinned-category {
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
 }

@@ -2,13 +2,14 @@ export const parseQuery = (query?: object) => {
   if (!query) {
     return "";
   }
-  return Object.keys(query).reduce((acc, key, index) => {
-    const elem = query[key as keyof typeof query];
-    if (elem === undefined || elem === null) {
-      return acc;
+  const params = new URLSearchParams();
+  Object.keys(query).forEach((key) => {
+    const value = query[key as keyof typeof query];
+    if (value !== undefined && value !== null) {
+      params.append(key, String(value));
     }
+  });
 
-    const prefix = index === 0 ? "?" : "&";
-    return `${acc}${prefix}${key}=${elem}`;
-  }, "");
+  const paramsStringified = params.toString();
+  return paramsStringified ? `?${paramsStringified}` : "";
 };

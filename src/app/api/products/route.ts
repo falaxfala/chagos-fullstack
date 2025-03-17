@@ -21,7 +21,6 @@ const imageRewrites = {
     "https://www.baustoffshop.de/media/catalog/product/cache/f06299e7d0d108118744e911a06ab174/p/r/prima-neu_4876997_prima_parkett_grandiosa_oak_nature_oiled_ver.jpg",
 } as const;
 
-// Custom GET route to apply filters backend side
 export const GET = async (req: NextRequest) => {
   const dataRequest = await fetch(
     `${process.env.NEXT_PUBLIC_DATA_SOURCE_URL}/data.json`
