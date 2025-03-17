@@ -1,9 +1,7 @@
-import Navigation from "@/components/Navigation/Navigation";
+import ProductCatalogPage from "@/components/pages/ProductCatalogPage/ProductCatalogPage";
 
-export default function Home() {
-  return (
-    <section>
-      <Navigation />
-    </section>
-  );
-}
+const Home = async () => {
+  return <ProductCatalogPage />;
+};
+
+export default Home;
